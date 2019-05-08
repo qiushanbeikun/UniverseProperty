@@ -89,10 +89,13 @@ public class Main {
         public void actionPerformed(ActionEvent e) {
             if (e.getSource() == generateIDU) {
                 // this should generate the graph of a IDU
-                InfiniteDivergentUniverse iDU = new InfiniteDivergentUniverse(Integer.valueOf(textField1.getText()), 0, 3, 1, 1);
-                graphicIDU = iDU.Illustration();
+                InfiniteDivergentUniverse iDU = new InfiniteDivergentUniverse(Integer.valueOf(textField1.getText()), 0, 3, 1, 0,0, 1);
+                /*graphicIDU = iDU.Illustration();
                 card1.add(graphicIDU);
-                frame.setVisible(true);
+                frame.setVisible(true);*/
+
+                iDU.simulateDrawingPicture();
+
             }
             else if (e.getSource() == generateICU) {
                 // this should generate the graph of a ICU

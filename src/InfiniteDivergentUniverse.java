@@ -4,23 +4,24 @@ import java.util.ArrayList;
 
 
 public class InfiniteDivergentUniverse {
-    int total;
-    int nodePosition;
-    int numberOfSubtrees;
-    int numberOfBrothers;
-    int parentNodePositionX;
-    int parentNodePositionY;
+    private int total;
+    private int nodePosition;
+    private int numberOfSubtrees;
+    private int numberOfBrothers;
+    private double parentNodePositionX;
+    private double parentNodePositionY;
 
 
-    double order;
-    double branchLength;
-    int nodePositionX;
-    int nodePositionY;
+    private double order;
+    private double branchLength;
+    private double nodePositionX;
+    private double nodePositionY;
+    private double branchDegree;
 
 
 
     private GraphicsTool IDUGraph = new GraphicsTool();
-    ArrayList<InfiniteDivergentUniverse> subtree = new ArrayList<>();
+    private ArrayList<InfiniteDivergentUniverse> subtree = new ArrayList<>();
 
     // info about a infinite diverse universe
     // total: tree height
@@ -29,22 +30,26 @@ public class InfiniteDivergentUniverse {
     //          indicates the number of subtrees of a node
     //          a node must have at least one subtree except for
     // number of brothers: retrieved from its parents, exactally the number of subtrees of its parent
-    // order: ======================== i kind of forget what is the function of this order
-    //                                 maybe is to determine the order of this branch in the graph
-    public InfiniteDivergentUniverse(int total, int nodePosition, int numberOfSubtrees, int numberOfBrothers, int parentNodePositionX, int parentNodePositionY, int order){
+    // order: is the order of this node among all its brothers
+
+    public InfiniteDivergentUniverse(int total, int nodePosition, int numberOfSubtrees, int numberOfBrothers, double parentNodePositionX, double parentNodePositionY, double order){
         this.total = total;
         this.nodePosition = nodePosition;
         this.numberOfSubtrees = numberOfSubtrees;
         this.numberOfBrothers = numberOfBrothers;
         this.parentNodePositionX = parentNodePositionX;
         this.parentNodePositionY = parentNodePositionY;
-        System.out.println(nodePosition);
+        this.order = order;
+        System.out.println(numberOfBrothers);
+        // System.out.println(nodePosition);
         generateGraphInfo();
 
         if (nodePosition != total){
             generateSubtree();
         }
             //else stop generating subtrees
+        /*System.out.println("the tree is completely generated");
+        System.out.println("the tree has been completely drawn");*/
 
     }
 
@@ -54,9 +59,10 @@ public class InfiniteDivergentUniverse {
         }
     }
 
+    // note node position starts from 0
     public InfiniteDivergentUniverse generateRandomSubtree(int order){
         int numberOfSubSub = 1 + (int) Math.floor((Math.random() * 4));
-        return new InfiniteDivergentUniverse(total, nodePosition+1,numberOfSubSub, this.numberOfBrothers, nodePositionX, nodePositionY, order);
+        return new InfiniteDivergentUniverse(total, nodePosition+1, numberOfSubSub, this.numberOfSubtrees, nodePositionX, nodePositionY, order);
 
     }
 
@@ -80,10 +86,34 @@ public class InfiniteDivergentUniverse {
     // equaitons: branch length determind by the depth of the tree and node position
     // to make sure that the gragh can occupy thewhole canvas, branch length and node info should be determined wisely.
     //
-    public void generateGraphInfo(){
-        this. order = Math.PI/6/total;
-        this.branchLength = (-nodePosition/3 + total/6);
-        this.nodePositionX = parentNodePositionX + ;
+    private void generateGraphInfo(){
+        double totalD = Math.PI/3/(nodePosition+1);
+        if (numberOfBrothers !=1){
+            this.branchDegree = -totalD/2 + (order-1)*totalD/(numberOfBrothers-1);
+        }else{
+            this.branchDegree = Math.PI/5;
+        }
+        double DNP = nodePosition;
+        double DT = total;
+        if (nodePosition != 0) {
+            this.branchLength = (-DNP/3 + 1800/DT + DT/6);
+        }else{
+            this.branchLength = 0;
+        }
+        this.nodePositionX = parentNodePositionX + Math.cos(branchDegree)*branchLength;
+        this.nodePositionY = parentNodePositionY + Math.sin(branchDegree)*branchLength;
+    }
+
+    public void simulateDrawingPicture(){
+        System.out.println("Printing the Node at Position: " + nodePosition);
+        int temp = (nodePosition + 1);
+        System.out.println("Total degree is " + "pi/3/"+temp);
+        System.out.println("At coordinate: (" + nodePositionX + "," + nodePositionY + ")" );
+        System.out.println("The branch is drawn from (" + parentNodePositionX + "," + parentNodePositionY + ") to ("  + nodePositionX + "," + nodePositionY + ")" );
+        System.out.println("branch degree is: " + branchDegree);
+        for (InfiniteDivergentUniverse g: subtree){
+            g.simulateDrawingPicture();
+        }
     }
 
 
