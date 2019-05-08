@@ -40,7 +40,7 @@ public class InfiniteDivergentUniverse {
         this.parentNodePositionX = parentNodePositionX;
         this.parentNodePositionY = parentNodePositionY;
         this.order = order;
-        System.out.println(numberOfBrothers);
+        //System.out.println(numberOfBrothers);
         // System.out.println(nodePosition);
         generateGraphInfo();
 
@@ -54,7 +54,7 @@ public class InfiniteDivergentUniverse {
     }
 
     public void generateSubtree(){
-        for (int i = 1; i < numberOfSubtrees; i++) {
+        for (int i = 1; i <= numberOfSubtrees; i++) {
             subtree.add(generateRandomSubtree(i));
         }
     }
@@ -80,6 +80,8 @@ public class InfiniteDivergentUniverse {
             //draw the component for subtrees
             // this is a question about how to do natural recursion in the graph tool component
 
+
+
         }
     }
     // to generate the required info to draw the graph
@@ -91,7 +93,7 @@ public class InfiniteDivergentUniverse {
         if (numberOfBrothers !=1){
             this.branchDegree = -totalD/2 + (order-1)*totalD/(numberOfBrothers-1);
         }else{
-            this.branchDegree = Math.PI/5;
+            this.branchDegree = 0;
         }
         double DNP = nodePosition;
         double DT = total;
@@ -100,21 +102,24 @@ public class InfiniteDivergentUniverse {
         }else{
             this.branchLength = 0;
         }
-        this.nodePositionX = parentNodePositionX + Math.cos(branchDegree)*branchLength;
+        this.nodePositionX = parentNodePositionX + branchLength;
         this.nodePositionY = parentNodePositionY + Math.sin(branchDegree)*branchLength;
     }
 
     public void simulateDrawingPicture(){
         System.out.println("Printing the Node at Position: " + nodePosition);
+        System.out.println("this node has number of brothers of: " + numberOfBrothers);
         int temp = (nodePosition + 1);
         System.out.println("Total degree is " + "pi/3/"+temp);
         System.out.println("At coordinate: (" + nodePositionX + "," + nodePositionY + ")" );
         System.out.println("The branch is drawn from (" + parentNodePositionX + "," + parentNodePositionY + ") to ("  + nodePositionX + "," + nodePositionY + ")" );
         System.out.println("branch degree is: " + branchDegree);
+        System.out.println("-----------------------------------------------");
         for (InfiniteDivergentUniverse g: subtree){
             g.simulateDrawingPicture();
         }
     }
+
 
 
 }
