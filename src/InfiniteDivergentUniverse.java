@@ -61,7 +61,7 @@ public class InfiniteDivergentUniverse {
 
     // note node position starts from 0
     public InfiniteDivergentUniverse generateRandomSubtree(int order){
-        int numberOfSubSub = 1 + (int) Math.floor((Math.random() * 4));
+        int numberOfSubSub = 1 + (int) Math.floor(Math.random() * 4);
         return new InfiniteDivergentUniverse(total, nodePosition+1, numberOfSubSub, this.numberOfSubtrees, nodePositionX, nodePositionY, order);
 
     }
