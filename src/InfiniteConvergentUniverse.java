@@ -87,6 +87,37 @@ public class InfiniteConvergentUniverse {
     }
 
     public void generateGraphInfo(){
+        // total degree is half of that in IDU, asume that the bumber of normak subtrees is approx
+        //          half  of the total subtrees
+        //          all the convergent branches re converging to the x-axies, that is
+        //          if they are Y is below zero, the degree is positive, Y above zeron, then degree is negative
+        //       assume that all the normal branches diverges to the x-axies, they follow similar rules.
+        double totalD = Math.PI/6/(nodePosition+1);
+        if (this.numberOfBrothers != 1){
+            if (this.convergence){
+                if (parentNodePositionY>0){
+
+                }else{ // parent node position < 0
+
+                }
+            }
+            else{// this is not a convergent branch
+
+            }
+        }else{
+            this.branchDegree = 0;
+        }
+
+
+        // branch length stays the same with IDU
+
+        double DNP = nodePosition;
+        double DT = total;
+        if (nodePosition != 0) {
+            this.branchLength = (-DNP/3 + 1800/DT + DT/6);
+        }else{
+            this.branchLength = 0;
+        }
 
     }
 }

@@ -95,6 +95,11 @@ public class InfiniteDivergentUniverse {
         }else{
             this.branchDegree = 0;
         }
+
+        // details to define branch length, if the node is the startin node, then branch length is 0
+        // if the node is a internal node, branch length depends on the position of the node
+        // follows the equation: f(x) = \frac{-1\times node position}{3}+ (graphic width)/tree depth + tree depth/6
+
         double DNP = nodePosition;
         double DT = total;
         if (nodePosition != 0) {
@@ -102,6 +107,8 @@ public class InfiniteDivergentUniverse {
         }else{
             this.branchLength = 0;
         }
+
+        // to make sure that nodes with the same depth are on the same vertical line
         this.nodePositionX = parentNodePositionX + branchLength;
         this.nodePositionY = parentNodePositionY + Math.sin(branchDegree)*branchLength;
     }
