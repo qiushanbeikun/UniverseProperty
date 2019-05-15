@@ -55,6 +55,8 @@ public class InfiniteConvergentUniverse {
         this.parentNodePositionY = parentNodePositionY;
         this.order = order;
 
+        generateGraphInfo();
+
         if (nodePosition != total){
             generateSubtree();
         }
@@ -75,14 +77,14 @@ public class InfiniteConvergentUniverse {
     }
 
     public InfiniteConvergentUniverse generateANormalSubtree(int order){
-        int numberOfSubs = 1+ (int) Math.floor(Math.random() * 4);
         int numberOfConvergentSubs = (int) Math.floor(Math.random()*2);
+        int numberOfSubs = numberOfConvergentSubs+ (int) Math.floor(Math.random() * 3);
         return new InfiniteConvergentUniverse(total, nodePosition+1, false, numberOfSubs, this.numberOfSubtrees, numberOfConvergentSubs, this.nodePositionX, nodePositionY, order);
     }
 
     public InfiniteConvergentUniverse generateAConvergentSubtree(int order){
-        int numberOfSubs = 1+ (int) Math.floor(Math.random() * 4);
         int numberOfConvergentSubs = (int) Math.floor(Math.random()*2);
+        int numberOfSubs = numberOfConvergentSubs+ (int) Math.floor(Math.random() * 3);
         return new InfiniteConvergentUniverse(total, nodePosition+1, true, numberOfSubs, this.numberOfSubtrees, numberOfConvergentSubs, this.nodePositionX, this.nodePositionY, order);
     }
 
@@ -92,22 +94,23 @@ public class InfiniteConvergentUniverse {
         //          all the convergent branches re converging to the x-axies, that is
         //          if they are Y is below zero, the degree is positive, Y above zeron, then degree is negative
         //       assume that all the normal branches diverges to the x-axies, they follow similar rules.
+
+        // this total degree is only half of the IDU, thus it will be used in both convergent and normal
         double totalD = Math.PI/6/(nodePosition+1);
         if (this.numberOfBrothers != 1){
             if (this.convergence){
                 if (parentNodePositionY>0){
 
-                }else{ // parent node position < 0
+                }else{ // parent node position Y < 0
 
                 }
             }
             else{// this is not a convergent branch
 
             }
-        }else{
+        }else{ // this branch is a 独生子, then the branch will go horizontal, same with IDU
             this.branchDegree = 0;
         }
-
 
         // branch length stays the same with IDU
 
@@ -118,6 +121,10 @@ public class InfiniteConvergentUniverse {
         }else{
             this.branchLength = 0;
         }
+
+    }
+
+    public void drawSmoothCurve(double expectedOrder){
 
     }
 }
